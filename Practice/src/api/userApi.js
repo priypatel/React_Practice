@@ -1,29 +1,16 @@
-// src/api/userApi.js
+import axiosClient from "./axiosClient.js";
 
 export const getUsers = async () => {
-  const res = await fetch("https://jsonplaceholder.typicode.com/users");
-  if (!res.ok) throw new Error("Failed to fetch users");
-  return res.json();
+  const res = await axiosClient.get("/users");
+  return res.data;
 };
 
 export const createUser = async (user) => {
-  const res = await fetch("https://jsonplaceholder.typicode.com/users", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(user),
-  });
-
-  if (!res.ok) throw new Error("Failed to create user");
-  return res.json();
+  const res = await axiosClient.post("/users", user);
+  return res.data;
 };
 
 export const updateUser = async (id, user) => {
-  const res = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(user),
-  });
-
-  if (!res.ok) throw new Error("Failed to update user");
-  return res.json();
+  const res = await axiosClient.put(`/users/${id}`, user);
+  return res.data;
 };
